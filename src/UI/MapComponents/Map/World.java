@@ -32,7 +32,7 @@ public class World {
                 noise[i][j] = 0;
             }
         }
-        for (int i = 0; i < 16; i++){
+        for (int i = 0; i < size/5; i++){
             int xRandom = random.nextInt(size);
             int yRandom = random.nextInt(size);
             noise[yRandom][xRandom] = 100;
@@ -63,7 +63,9 @@ public class World {
 
                 return;
             }
-            noise[currentY][currentX] = 110 - (int)Math.sqrt(Math.pow(initX-currentX,2) + Math.pow(initY-currentY,2)) * 5;
+            int noiseValue = 110 - (int)Math.sqrt(Math.pow(initX-currentX,2) + Math.pow(initY-currentY,2)) * 5;
+            if (noiseValue > noise[currentX][currentY])
+                noise[currentY][currentX] = noiseValue;
             if(deltaX == 0 && deltaY == 1) {
                 recursivelyGenerateNoise(initX, initY, currentX + deltaX, currentY + deltaY, 1, 0);
                 recursivelyGenerateNoise(initX, initY, currentX + deltaX, currentY + deltaY, 0, 1);
